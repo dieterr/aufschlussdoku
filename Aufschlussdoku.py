@@ -34,57 +34,46 @@ def main(argv):
     start_y = float(10.4864)
     strats = []
     strat_ct = int(0)
+    strat_ok = float(0.0)
     for line in reader:
         if line[0].find("Tiefe bis [m]") <> 0:
             strat_ct = strat_ct + 1
             strat_d = line[0].replace(",", ".");
+            strat_uk = float(strat_d) + float(strat_ok)
+            strat_uk_txt = str(strat_uk).replace(".", ",");
             strat_h = line[0]
             strat_n = line[1]
             strat_b = line[2]
             strat_p = line[3]
             strat_a = line[4]
-            strat = [strat_d, line[0], line[1], line[2], line[3], line[4]]
+            strat = [strat_d, strat_uk, strat_h, strat_n, strat_b, strat_p, strat_a]
             print strat
             strats.append(strat)
             start_x_0 = start_x
+            box_nr = int(0)
 
             for box in boxes:
                 box_n = box[0] + str(strat_ct)
+                box_txt = strat[box_nr + 2]
                 box_txt_n = box_n + "txt"
-                #print box[0]
-                #dimensions = scribus.getSize(box_n)
-                #position = scribus.getPosition(box_n)
-                print box_n, box_txt_n#, dimensions[1], position
-                #box_n_new = box + str(strat_c + 1)
+                print box_nr
+                print box_txt
+                #print box_n, box_txt_n, dimensions[1], position
                 scribus.createRect(start_x_0, start_y, float(box[1]), float(strat_d)*2.0, box_n)
-                scribus.createText(start_x_0 + 0.1, start_y + 0.1, float(box[1]) - 0.2, (float(strat_d)*2.0) - 0.2, box_txt_n)
+                scribus.setLineWidth(0.567, box_n)
+                if box_nr == 0:
+                    scribus.createText(start_x_0 + 0.1, start_y + (float(strat_d) * 2.0) - 0.4, float(box[1]) - 0.2, 0.4, box_txt_n)
+                    box_txt = strat_uk_txt
+                else:
+                    scribus.createText(start_x_0 + 0.1, start_y + 0.1, float(box[1]) - 0.2, (float(strat_d)*2.0) - 0.1, box_txt_n)
+                scribus.setText(box_txt, box_txt_n)
+                scribus.setStyle("Buchner_Standard", box_txt_n)
                 start_x_0 = start_x_0 + float(box[1])
-                print start_x_0, start_y, box[1], strat_d
-                #areaname = scribus.getSelectedObject()
-                #areaposition= scribus.getPosition(areaname)
-                #scribus.sizeObject(dimensions[0],float(strat_d)*2.0,box_n)
-                ## scribus.copyObject(box_n)
-                ## scribus.pasteObject(box_n)
-                ## shiftamount = float(strat_d)*2.0
-                ## scribus.moveObject(shiftamount, 0, box_n)
+                #print start_x_0, start_y, box[1], strat_d
+                box_nr = box_nr + 1
             start_y = start_y + float(strat_d) * 2.0
             start_x_0 = start_x
         print "end"
-
-    ## print strats[:]
-    ## if len(strat_h) == 0:
-    ##      print "Fertig!"
-    ##      sys.exit(1)
-    ## else:
-    ##      print strat_h
-    ##      strat_id = 1
-    ##      for c in collist:
-    ##           strat = c + str(strat_id)
-    ##           print strat
-    ##           dimensions=scribus.getSize(strat)
-    ##           sizeObject(dimensions[0],float(strat_h)*2.0,strat)
-    ##           #setFillColor("green", i,strat)
-    ##           #strat_id = strat_id + 1
 
 def main_wrapper(argv):
     """The main_wrapper() function disables redrawing, sets a sensible generic
