@@ -49,12 +49,15 @@ def main(argv):
             start_x_0 = start_x
 
             for box in boxes:
-                box_n = box[0] + str(1) #str(strat_ct)
+                box_n = box[0] + str(strat_ct)
+                box_txt_n = box_n + "txt"
+                #print box[0]
                 #dimensions = scribus.getSize(box_n)
                 #position = scribus.getPosition(box_n)
-                #print box_n, dimensions[1], position
+                print box_n, box_txt_n#, dimensions[1], position
                 #box_n_new = box + str(strat_c + 1)
-                #h = scribus.createRect(start_x_0, start_y, float(strat_d)*2.0, float(box[1]))
+                scribus.createRect(start_x_0, start_y, float(box[1]), float(strat_d)*2.0, box_n)
+                scribus.createText(start_x_0 + 0.1, start_y + 0.1, float(box[1]) - 0.2, (float(strat_d)*2.0) - 0.2, box_txt_n)
                 start_x_0 = start_x_0 + float(box[1])
                 print start_x_0, start_y, box[1], strat_d
                 #areaname = scribus.getSelectedObject()
