@@ -26,9 +26,10 @@ def main(argv):
     #  YOUR CODE GOES HERE  #
     #########################
     csvfile = scribus.fileDialog("csv2table :: open file", "*.csv")
+    #pos_filename_l = csvfile.rfind("/")
+    #filename = csvfile.rstrip(pos_filename_l)
+    #print filename
     reader = csv.reader(open(csvfile, "rb"), delimiter=";")
-    #boxes = ["strat_d", "strat_n", "strat_b", "strat_p", "strat_a"]
-    #boxes_b = [2.25, 2.25, 6.5, 2.3, 3.9]
     boxes = [["strat_d", 2.25], ["strat_n", 2.25], ["strat_b", 6.5], ["strat_p", 2.3], ["strat_a", 3.9]]
     start_x = float(1.9075)
     start_y = float(10.4864)
@@ -40,7 +41,9 @@ def main(argv):
             strat_ct = strat_ct + 1
             strat_d = line[0].replace(",", ".");
             strat_uk = float(strat_d) + float(strat_ok)
+            print strat_uk
             strat_uk_txt = str(strat_uk).replace(".", ",");
+            print strat_uk_txt
             strat_h = line[0]
             strat_n = line[1]
             strat_b = line[2]
@@ -56,24 +59,28 @@ def main(argv):
                 box_n = box[0] + str(strat_ct)
                 box_txt = strat[box_nr + 2]
                 box_txt_n = box_n + "txt"
-                print box_nr
-                print box_txt
+                #print box_nr
+                #print box_txt
                 #print box_n, box_txt_n, dimensions[1], position
                 scribus.createRect(start_x_0, start_y, float(box[1]), float(strat_d)*2.0, box_n)
                 scribus.setLineWidth(0.567, box_n)
                 if box_nr == 0:
                     scribus.createText(start_x_0 + 0.1, start_y + (float(strat_d) * 2.0) - 0.4, float(box[1]) - 0.2, 0.4, box_txt_n)
-                    box_txt = strat_uk_txt
+                    print strat_uk_txt
+                    scribus.setText(strat_uk_txt, box_txt_n)
                 else:
                     scribus.createText(start_x_0 + 0.1, start_y + 0.1, float(box[1]) - 0.2, (float(strat_d)*2.0) - 0.1, box_txt_n)
-                scribus.setText(box_txt, box_txt_n)
+                    scribus.setText(box_txt, box_txt_n)
                 scribus.setStyle("Buchner_Standard", box_txt_n)
                 start_x_0 = start_x_0 + float(box[1])
                 #print start_x_0, start_y, box[1], strat_d
                 box_nr = box_nr + 1
+            print "end: strat count:", strat_ct
             start_y = start_y + float(strat_d) * 2.0
             start_x_0 = start_x
-        print "end"
+            strat_ok = strat_ok + float(strat_d)
+    print "end: all"
+    #scribus.saveDocAs("test.sla")
 
 def main_wrapper(argv):
     """The main_wrapper() function disables redrawing, sets a sensible generic
