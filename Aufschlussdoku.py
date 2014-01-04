@@ -52,8 +52,7 @@ def main(argv):
             if strat_uk_draw > 26.8:
                 nPage = scribus.currentPage() + 1
                 pageendtext = "Fortsetzung nächste Seite"
-                
-                print nPage
+                #print nPage
                 scribus.createText(start_x_0 + 0.1, start_y + 0.1, 17, 0.5, "box_txt_pageend")
                 scribus.sentToLayer("profil_txt", "box_txt_pageend")
                 scribus.setText(pageendtext, "box_txt_pageend")
@@ -62,14 +61,10 @@ def main(argv):
                 scribus.gotoPage(nPage)
                 start_y = float(5.5)
                 strat_uk_draw = start_y + strat_draw
-                #scribus.saveDocAs(fname_noext + ".sla")
-                #sys.exit()
+                
             box_nr = int(0)
-            print strat_uk
-            print "aktuelle Seite:", scribus.currentPage()
-
-            if scribus.currentPage == 1:
-                print "Seite 1"
+            #print strat_uk
+            #print "aktuelle Seite:", scribus.currentPage()
 
             #print strat_uk
             strat_uk_txt = str(strat_uk).replace(".", ",");
