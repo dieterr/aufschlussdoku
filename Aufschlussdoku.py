@@ -18,6 +18,9 @@ except ImportError,err:
 #########################
 import csv
 import getpass
+#import pwd
+#import os
+#os.environ.get( "USERNAME" ) +
 
 def main(argv):
     """This is a documentation string. Write a description of what your code
@@ -27,7 +30,7 @@ def main(argv):
     #  YOUR CODE GOES HERE  #
     #########################
     script = "Aufschlussdoku.py"
-    version = "20131231"
+    version = "20140107"
     csvfile = scribus.fileDialog("csv2table :: open file", "*.csv")
     fname_ext = csvfile[csvfile.rfind("/") + 1:]
     fname_noext = fname_ext[:fname_ext.rfind(".")]
@@ -96,7 +99,7 @@ def main(argv):
                 else:
                     scribus.createText(start_x_0 + 0.1, start_y + 0.1, float(box[1]) - 0.2, (strat_draw) - 0.1, box_txt_n)
                     scribus.setText(box_txt, box_txt_n)
-                scribus.setStyle("Buchner_Standard", box_txt_n)
+                scribus.setStyle("Buchner_Standard schmal", box_txt_n)
                 scribus.sentToLayer("profil_txt", box_txt_n)
                 start_x_0 = start_x_0 + float(box[1])
                 box_nr = box_nr + 1
