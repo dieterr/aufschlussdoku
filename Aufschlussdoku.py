@@ -52,7 +52,7 @@ def main(argv):
             strat_draw = float(strat_d) * 2.0
             strat_uk_draw = start_y + strat_draw
 
-            if strat_uk_draw > 26.8:
+            if strat_uk_draw > 26.4:
                 nPage = scribus.currentPage() + 1
                 pageendtext = "Fortsetzung nächste Seite"
                 #print nPage
